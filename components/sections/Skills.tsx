@@ -5,15 +5,18 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { skills, skillCategories } from "@/data/skills";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/components/LanguageProvider";
 
 export function Skills() {
+  const { t } = useTranslation();
+
   return (
     <section id="skills" aria-labelledby="skills-heading" className="py-24">
       <Container>
         <SectionHeader
-          label="Skills"
-          title="What I work with"
-          description="Technologies and tools I reach for when building products."
+          label={t.skills.label}
+          title={t.skills.title}
+          description={t.skills.description}
           id="skills-heading"
         />
 

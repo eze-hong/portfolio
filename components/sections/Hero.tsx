@@ -5,9 +5,11 @@ import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { profile } from "@/data/profile";
+import { useTranslation } from "@/components/LanguageProvider";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useTranslation();
 
   const containerVariants = {
     hidden: {},
@@ -34,10 +36,7 @@ export function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden pt-14"
     >
       {/* Background grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 grid-bg"
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-bg" />
 
       {/* Radial gradient overlay */}
       <div
@@ -63,7 +62,7 @@ export function Hero() {
             <motion.div variants={itemVariants} className="mb-8">
               <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50/80 px-3 py-1 text-xs font-medium text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Available for new opportunities
+                {t.hero.available}
               </span>
             </motion.div>
           )}
@@ -81,7 +80,7 @@ export function Hero() {
             variants={itemVariants}
             className="mt-3 text-2xl font-light tracking-tight text-zinc-500 sm:text-3xl dark:text-zinc-400"
           >
-            {profile.role}
+            {t.hero.role}
           </motion.p>
 
           {/* Bio */}
@@ -89,7 +88,7 @@ export function Hero() {
             variants={itemVariants}
             className="mt-6 max-w-xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400"
           >
-            {profile.bio}
+            {t.hero.bio}
           </motion.p>
 
           {/* CTAs */}
@@ -98,10 +97,10 @@ export function Hero() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <Button href="#projects" variant="primary" size="lg">
-              View Projects
+              {t.hero.viewProjects}
             </Button>
             <Button href="#contact" variant="outline" size="lg">
-              Get in Touch
+              {t.hero.getInTouch}
             </Button>
           </motion.div>
         </motion.div>
@@ -113,17 +112,9 @@ export function Hero() {
           animate={
             shouldReduceMotion
               ? { opacity: 1 }
-              : {
-                  opacity: [0, 1, 1, 0],
-                  y: [-10, 0, 0, 10],
-                }
+              : { opacity: [0, 1, 1, 0], y: [-10, 0, 0, 10] }
           }
-          transition={{
-            delay: 1.5,
-            duration: 2.5,
-            repeat: Infinity,
-            repeatDelay: 1,
-          }}
+          transition={{ delay: 1.5, duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
           aria-hidden="true"
         >
           <ArrowDown className="h-4 w-4 text-zinc-400 dark:text-zinc-600" />

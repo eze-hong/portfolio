@@ -3,6 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Badge } from "@/components/ui/Badge";
+import { projects } from "@/data/projects";
+import { useTranslation } from "@/components/LanguageProvider";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -11,95 +16,93 @@ function GitHubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import { Container } from "@/components/ui/Container";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Badge } from "@/components/ui/Badge";
-import { projects } from "@/data/projects";
 
 export function Projects() {
+  const { t } = useTranslation();
+
   return (
     <section id="projects" aria-labelledby="projects-heading" className="py-24">
       <Container>
         <SectionHeader
-          label="Projects"
-          title="Things I've built"
-          description="A selection of personal and open-source projects."
+          label={t.projects.label}
+          title={t.projects.title}
+          description={t.projects.description}
           id="projects-heading"
         />
 
-        <ul
-          className="grid gap-6 sm:grid-cols-2"
-          role="list"
-        >
-          {projects.map((project, idx) => (
-            <motion.li
-              key={project.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200/60 bg-zinc-50/40 transition-colors hover:border-zinc-300 hover:bg-zinc-100/80 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-zinc-700 dark:hover:bg-zinc-900/80"
-            >
-              {/* Image */}
-              {project.imageUrl && (
-                <div className="relative h-48 w-full overflow-hidden bg-zinc-200 dark:bg-zinc-800">
-                  <Image
-                    src={project.imageUrl}
-                    alt={`${project.title} preview`}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-100/60 to-transparent dark:from-zinc-900/60" />
-                </div>
-              )}
+        <ul className="grid gap-6 sm:grid-cols-2" role="list">
+          {projects.map((project, idx) => {
+            const projectI18n = t.projects.items[project.id as keyof typeof t.projects.items];
+            const title = projectI18n?.title ?? project.title;
+            const description = projectI18n?.description ?? project.description;
 
-              <div className="flex flex-1 flex-col p-5">
-                {/* Header */}
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-semibold text-zinc-900 dark:text-white">{project.title}</h3>
-                  <div className="flex shrink-0 items-center gap-2">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${project.title} GitHub repository`}
-                        className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
-                      >
-                        <GitHubIcon className="h-4 w-4" />
-                      </a>
-                    )}
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${project.title} live demo`}
-                        className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
-                      >
-                        <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                      </a>
-                    )}
+            return (
+              <motion.li
+                key={project.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200/60 bg-zinc-50/40 transition-colors hover:border-zinc-300 hover:bg-zinc-100/80 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-zinc-700 dark:hover:bg-zinc-900/80"
+              >
+                {/* Image */}
+                {project.imageUrl && (
+                  <div className="relative h-48 w-full overflow-hidden bg-zinc-200 dark:bg-zinc-800">
+                    <Image
+                      src={project.imageUrl}
+                      alt={`${title} preview`}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-100/60 to-transparent dark:from-zinc-900/60" />
                   </div>
+                )}
+
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-semibold text-zinc-900 dark:text-white">{title}</h3>
+                    <div className="flex shrink-0 items-center gap-2">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${title} GitHub`}
+                          className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
+                        >
+                          <GitHubIcon className="h-4 w-4" />
+                        </a>
+                      )}
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${title} demo`}
+                          className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
+                        >
+                          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    {description}
+                  </p>
+
+                  <ul className="mt-4 flex flex-wrap gap-1.5" role="list" aria-label="Technologies used">
+                    {project.tech.map((tech) => (
+                      <li key={tech}>
+                        <Badge variant="muted">{tech}</Badge>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                {/* Description */}
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                  {project.description}
-                </p>
-
-                {/* Tech stack */}
-                <ul className="mt-4 flex flex-wrap gap-1.5" role="list" aria-label="Technologies used">
-                  {project.tech.map((tech) => (
-                    <li key={tech}>
-                      <Badge variant="muted">{tech}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.li>
-          ))}
+              </motion.li>
+            );
+          })}
         </ul>
       </Container>
     </section>

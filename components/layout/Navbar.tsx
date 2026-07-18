@@ -6,26 +6,21 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useTranslation } from "@/components/LanguageProvider";
+import type { Locale } from "@/lib/translations";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
-
-const sectionIds = navLinks.map((l) => l.href.slice(1));
+const sectionIds = ["about", "skills", "projects", "experience", "contact"];
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
-
   if (!mounted) return <div className="h-8 w-8" />;
 
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   return (
     <button
@@ -38,9 +33,38 @@ function ThemeToggle() {
   );
 }
 
+function LangToggle() {
+  const { locale, setLocale } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className="h-8 w-10" />;
+
+  const next: Locale = locale === "en" ? "ko" : "en";
+
+  return (
+    <button
+      onClick={() => setLocale(next)}
+      aria-label={`Switch to ${next === "ko" ? "Korean" : "English"}`}
+      className="flex h-8 items-center justify-center rounded-md px-2 text-xs font-semibold text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400"
+    >
+      {locale === "en" ? "KO" : "EN"}
+    </button>
+  );
+}
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const activeSection = useActiveSection(sectionIds);
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.experience, href: "#experience" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -101,10 +125,10 @@ export function Navbar() {
           })}
         </ul>
 
-        {/* Right side: theme toggle + mobile links */}
-        <div className="flex items-center gap-3">
-          {/* Mobile: simple text links */}
-          <ul className="flex items-center gap-4 sm:hidden" role="list">
+        {/* Right side controls */}
+        <div className="flex items-center gap-1">
+          {/* Mobile links */}
+          <ul className="flex items-center gap-3 sm:hidden" role="list">
             {navLinks.slice(0, 3).map(({ label, href }) => (
               <li key={href}>
                 <a
@@ -117,6 +141,7 @@ export function Navbar() {
             ))}
           </ul>
 
+          <LangToggle />
           <ThemeToggle />
         </div>
       </nav>
