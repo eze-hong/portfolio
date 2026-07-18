@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Shield, Database, GraduationCap, MessageSquare } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
@@ -16,6 +15,35 @@ function GitHubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+type ProjectIcon = React.ComponentType<{ className?: string }>;
+
+const projectIcons: Record<string, { Icon: ProjectIcon; color: string; bg: string; darkBg: string }> = {
+  "iris-maintenance": {
+    Icon: Shield,
+    color: "text-blue-500",
+    bg: "from-blue-50 to-blue-100/50",
+    darkBg: "dark:from-blue-950/40 dark:to-blue-900/20",
+  },
+  "bid-notice-collector": {
+    Icon: Database,
+    color: "text-emerald-500",
+    bg: "from-emerald-50 to-emerald-100/50",
+    darkBg: "dark:from-emerald-950/40 dark:to-emerald-900/20",
+  },
+  "moe-info-system": {
+    Icon: GraduationCap,
+    color: "text-violet-500",
+    bg: "from-violet-50 to-violet-100/50",
+    darkBg: "dark:from-violet-950/40 dark:to-violet-900/20",
+  },
+  "paper-qa-chatbot": {
+    Icon: MessageSquare,
+    color: "text-amber-500",
+    bg: "from-amber-50 to-amber-100/50",
+    darkBg: "dark:from-amber-950/40 dark:to-amber-900/20",
+  },
+};
 
 export function Projects() {
   const { t } = useTranslation();
@@ -35,6 +63,7 @@ export function Projects() {
             const projectI18n = t.projects.items[project.id as keyof typeof t.projects.items];
             const title = projectI18n?.title ?? project.title;
             const description = projectI18n?.description ?? project.description;
+            const iconDef = projectIcons[project.id];
 
             return (
               <motion.li
@@ -45,17 +74,15 @@ export function Projects() {
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
                 className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200/60 bg-zinc-50/40 transition-colors hover:border-zinc-300 hover:bg-zinc-100/80 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-zinc-700 dark:hover:bg-zinc-900/80"
               >
-                {/* Image */}
-                {project.imageUrl && (
-                  <div className="relative h-48 w-full overflow-hidden bg-zinc-200 dark:bg-zinc-800">
-                    <Image
-                      src={project.imageUrl}
-                      alt={`${title} preview`}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, 50vw"
+                {/* Icon banner */}
+                {iconDef && (
+                  <div
+                    className={`flex h-36 w-full items-center justify-center bg-gradient-to-br ${iconDef.bg} ${iconDef.darkBg}`}
+                  >
+                    <iconDef.Icon
+                      className={`h-14 w-14 ${iconDef.color} opacity-80 transition-transform duration-300 group-hover:scale-110`}
+                      aria-hidden="true"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-100/60 to-transparent dark:from-zinc-900/60" />
                   </div>
                 )}
 
