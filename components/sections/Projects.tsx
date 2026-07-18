@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ExternalLink, Shield, Database, GraduationCap, MessageSquare } from "lucide-react";
+import { ExternalLink, Shield, Database, GraduationCap, MessageSquare, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { projects } from "@/data/projects";
+import { projectDetails } from "@/data/projectDetails";
 import { useTranslation } from "@/components/LanguageProvider";
 
 function GitHubIcon({ className }: { className?: string }) {
@@ -46,7 +48,7 @@ const projectIcons: Record<string, { Icon: ProjectIcon; color: string; bg: strin
 };
 
 export function Projects() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <section id="projects" aria-labelledby="projects-heading" className="py-24">
@@ -64,21 +66,13 @@ export function Projects() {
             const title = projectI18n?.title ?? project.title;
             const description = projectI18n?.description ?? project.description;
             const iconDef = projectIcons[project.id];
+            const hasDetailPage = !!projectDetails[project.id];
 
-            return (
-              <motion.li
-                key={project.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200/60 bg-zinc-50/40 transition-colors hover:border-zinc-300 hover:bg-zinc-100/80 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-zinc-700 dark:hover:bg-zinc-900/80"
-              >
+            const cardContent = (
+              <>
                 {/* Icon banner */}
                 {iconDef && (
-                  <div
-                    className={`flex h-36 w-full items-center justify-center bg-gradient-to-br ${iconDef.bg} ${iconDef.darkBg}`}
-                  >
+                  <div className={`flex h-36 w-full items-center justify-center bg-gradient-to-br ${iconDef.bg} ${iconDef.darkBg}`}>
                     <iconDef.Icon
                       className={`h-14 w-14 ${iconDef.color} opacity-80 transition-transform duration-300 group-hover:scale-110`}
                       aria-hidden="true"
@@ -90,27 +84,35 @@ export function Projects() {
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-semibold text-zinc-900 dark:text-white">{title}</h3>
                     <div className="flex shrink-0 items-center gap-2">
-                      {project.githubUrl && (
+                      {!hasDetailPage && project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${title} GitHub`}
+                          onClick={(e) => e.stopPropagation()}
                           className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
                         >
                           <GitHubIcon className="h-4 w-4" />
                         </a>
                       )}
-                      {project.demoUrl && (
+                      {!hasDetailPage && project.demoUrl && (
                         <a
                           href={project.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${title} demo`}
+                          onClick={(e) => e.stopPropagation()}
                           className="text-zinc-400 transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-zinc-500 dark:hover:text-zinc-200"
                         >
                           <ExternalLink className="h-4 w-4" aria-hidden="true" />
                         </a>
+                      )}
+                      {hasDetailPage && (
+                        <span className="inline-flex items-center gap-1 text-xs text-zinc-400 transition-colors group-hover:text-zinc-700 dark:text-zinc-500 dark:group-hover:text-zinc-300">
+                          {locale === "ko" ? "자세히" : "Details"}
+                          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                        </span>
                       )}
                     </div>
                   </div>
@@ -127,6 +129,25 @@ export function Projects() {
                     ))}
                   </ul>
                 </div>
+              </>
+            );
+
+            return (
+              <motion.li
+                key={project.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200/60 bg-zinc-50/40 transition-colors hover:border-zinc-300 hover:bg-zinc-100/80 dark:border-zinc-800/60 dark:bg-zinc-900/40 dark:hover:border-zinc-700 dark:hover:bg-zinc-900/80"
+              >
+                {hasDetailPage ? (
+                  <Link href={`/projects/${project.id}`} className="flex flex-1 flex-col">
+                    {cardContent}
+                  </Link>
+                ) : (
+                  cardContent
+                )}
               </motion.li>
             );
           })}
