@@ -33,15 +33,15 @@ export function SectionHeader({
       transition={{ duration: 0.5 }}
     >
       {label && (
-        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-zinc-500">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
           {label}
         </p>
       )}
-      <h2 id={id} className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+      <h2 id={id} className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl dark:text-white">
         {title}
       </h2>
       {description && (
-        <p className="mt-3 max-w-xl text-zinc-400 leading-relaxed">
+        <p className="mt-3 max-w-xl text-zinc-500 leading-relaxed dark:text-zinc-400">
           {description}
         </p>
       )}

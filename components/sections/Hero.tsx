@@ -36,24 +36,19 @@ export function Hero() {
       {/* Background grid */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgb(39 39 42 / 0.4) 1px, transparent 1px), linear-gradient(to bottom, rgb(39 39 42 / 0.4) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
+        className="pointer-events-none absolute inset-0 grid-bg"
       />
 
       {/* Radial gradient overlay */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950 via-transparent to-zinc-950"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-zinc-950 dark:via-transparent dark:to-zinc-950"
       />
 
       {/* Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.03] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-900/[0.03] blur-3xl dark:bg-white/[0.03]"
       />
 
       <Container className="relative z-10 py-32">
@@ -66,7 +61,7 @@ export function Hero() {
           {/* Availability badge */}
           {profile.availableForWork && (
             <motion.div variants={itemVariants} className="mb-8">
-              <span className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-3 py-1 text-xs font-medium text-zinc-400">
+              <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50/80 px-3 py-1 text-xs font-medium text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Available for new opportunities
               </span>
@@ -76,7 +71,7 @@ export function Hero() {
           {/* Name */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+            className="text-5xl font-bold tracking-tight text-zinc-900 sm:text-6xl lg:text-7xl dark:text-white"
           >
             {profile.name}
           </motion.h1>
@@ -84,7 +79,7 @@ export function Hero() {
           {/* Role */}
           <motion.p
             variants={itemVariants}
-            className="mt-3 text-2xl font-light tracking-tight text-zinc-400 sm:text-3xl"
+            className="mt-3 text-2xl font-light tracking-tight text-zinc-500 sm:text-3xl dark:text-zinc-400"
           >
             {profile.role}
           </motion.p>
@@ -92,7 +87,7 @@ export function Hero() {
           {/* Bio */}
           <motion.p
             variants={itemVariants}
-            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400"
           >
             {profile.bio}
           </motion.p>
@@ -131,7 +126,7 @@ export function Hero() {
           }}
           aria-hidden="true"
         >
-          <ArrowDown className="h-4 w-4 text-zinc-600" />
+          <ArrowDown className="h-4 w-4 text-zinc-400 dark:text-zinc-600" />
         </motion.div>
       </Container>
     </section>

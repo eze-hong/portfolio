@@ -28,9 +28,9 @@ export function Experience() {
             >
               {/* Timeline line + dot */}
               <div className="flex flex-col items-center" aria-hidden="true">
-                <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full border-2 border-zinc-600 bg-zinc-950" />
+                <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full border-2 border-zinc-300 bg-white dark:border-zinc-600 dark:bg-zinc-950" />
                 {idx !== experiences.length - 1 && (
-                  <span className="mt-2 w-px flex-1 bg-zinc-800" />
+                  <span className="mt-2 w-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
                 )}
               </div>
 
@@ -38,25 +38,25 @@ export function Experience() {
               <div className="flex-1 pb-0">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <h3 className="font-semibold text-white">{exp.role}</h3>
-                    <p className="text-sm text-zinc-400">{exp.company}</p>
+                    <h3 className="font-semibold text-zinc-900 dark:text-white">{exp.role}</h3>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">{exp.company}</p>
                   </div>
                   <time
-                    className="shrink-0 text-xs text-zinc-600"
+                    className="shrink-0 text-xs text-zinc-400 dark:text-zinc-600"
                     dateTime={exp.endDate ?? exp.startDate}
                   >
                     {exp.period}
                   </time>
                 </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-500">
                   {exp.description}
                 </p>
 
                 <ul className="mt-3 space-y-1.5" role="list">
                   {exp.highlights.map((h) => (
-                    <li key={h} className="flex gap-2 text-sm text-zinc-400">
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-zinc-600" aria-hidden="true" />
+                    <li key={h} className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-zinc-300 dark:bg-zinc-600" aria-hidden="true" />
                       {h}
                     </li>
                   ))}

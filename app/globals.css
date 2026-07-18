@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  --background: #ffffff;
+  --foreground: #09090b;
+}
+
+.dark {
   --background: #09090b;
   --foreground: #fafafa;
 }
@@ -14,7 +21,6 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -41,21 +47,48 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3f3f46;
+  background: #d4d4d8;
   border-radius: 9999px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+
 ::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #52525b;
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+}
+
+.dark * {
   scrollbar-color: #3f3f46 transparent;
 }
 
 /* Focus visible ring offset */
 *:focus-visible {
   outline-offset: 2px;
+}
+
+/* Hero background grid */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(212 212 216 / 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(212 212 216 / 0.5) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.dark .grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(39 39 42 / 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(39 39 42 / 0.4) 1px, transparent 1px);
+  background-size: 64px 64px;
 }

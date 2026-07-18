@@ -103,7 +103,7 @@ export function Contact() {
                 target={social.icon !== "mail" ? "_blank" : undefined}
                 rel={social.icon !== "mail" ? "noopener noreferrer" : undefined}
                 aria-label={social.name}
-                className="group flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/40 text-zinc-500 transition-colors hover:border-zinc-600 hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400"
+                className="group flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50/40 text-zinc-400 transition-colors hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-500 dark:hover:border-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-white"
               >
                 <Icon className="h-4 w-4" />
               </a>

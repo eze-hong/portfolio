@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,49 +17,48 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://jungminhong.dev";
+const siteUrl = "https://hongeze.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Jungmin Hong — Frontend Engineer",
-    template: "%s | Jungmin Hong",
+    default: "Hong Eze — Backend Engineer",
+    template: "%s | Hong Eze",
   },
   description:
-    "Frontend Engineer specialising in React, Next.js, and design systems. Building fast, accessible, and beautiful web experiences.",
+    "Backend Engineer specialising in Java, Spring Framework, and web application development. Building reliable and maintainable systems.",
   keywords: [
-    "Frontend Engineer",
-    "React",
-    "Next.js",
-    "TypeScript",
+    "Backend Engineer",
+    "Java",
+    "Spring Framework",
     "Web Developer",
-    "Jungmin Hong",
+    "Hong Eze",
   ],
-  authors: [{ name: "Jungmin Hong", url: siteUrl }],
-  creator: "Jungmin Hong",
+  authors: [{ name: "Hong Eze", url: siteUrl }],
+  creator: "Hong Eze",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Jungmin Hong",
-    title: "Jungmin Hong — Frontend Engineer",
+    siteName: "Hong Eze",
+    title: "Hong Eze — Backend Engineer",
     description:
-      "Frontend Engineer specialising in React, Next.js, and design systems.",
+      "Backend Engineer specialising in Java, Spring Framework, and web application development.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Jungmin Hong — Frontend Engineer",
+        alt: "Hong Eze — Backend Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jungmin Hong — Frontend Engineer",
+    title: "Hong Eze — Backend Engineer",
     description:
-      "Frontend Engineer specialising in React, Next.js, and design systems.",
-    creator: "@jungminhong",
+      "Backend Engineer specialising in Java, Spring Framework, and web application development.",
+    creator: "@hongeze",
     images: ["/og-image.png"],
   },
   robots: {
@@ -84,10 +84,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-screen bg-zinc-950 text-zinc-100">
-        <Navbar />
-        <main id="main-content">{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <ThemeProvider>
+          <Navbar />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

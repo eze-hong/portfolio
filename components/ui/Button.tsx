@@ -22,11 +22,11 @@ interface ButtonProps {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-white text-zinc-900 hover:bg-zinc-100 focus-visible:ring-white",
+    "bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 dark:focus-visible:ring-white",
   secondary:
-    "bg-zinc-800 text-zinc-100 hover:bg-zinc-700 focus-visible:ring-zinc-600",
+    "bg-zinc-200 text-zinc-800 hover:bg-zinc-300 focus-visible:ring-zinc-400 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:focus-visible:ring-zinc-600",
   outline:
-    "border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white focus-visible:ring-zinc-600",
+    "border border-zinc-300 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-white dark:focus-visible:ring-zinc-600",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -49,7 +49,7 @@ export function Button({
   rel,
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:pointer-events-none disabled:opacity-50";
+    "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950 disabled:pointer-events-none disabled:opacity-50";
 
   const combinedClassName = cn(baseStyles, variantStyles[variant], sizeStyles[size], className);
 
