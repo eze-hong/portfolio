@@ -92,7 +92,7 @@ export function Navbar() {
           className="text-sm font-semibold text-zinc-900 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded dark:text-white"
           aria-label="Back to top"
         >
-          jh.dev
+          eze portfolio
         </a>
 
         {/* Desktop links */}
